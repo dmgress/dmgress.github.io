@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Daniel Gressmann is a nice guy. He tries hard and at times doesn't get things done quite as he planned it. But hey, who does?
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Currently employed in his native country, he manages to survive in a world that is growing and shrinking at the same time. Growing in the sense of complexity and technological achievements, yet shrinking because this growth keeps on increasing communication in the world.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Forever curious, he enjoys discovering ways to improve himself and others in both technology and human skills.
 
-
-[jekyll-organization]: https://github.com/jekyll
+When he is not working, he should be sleeping. Seriously, sleep and don't stay up late trying to fix things that were nagging him during work hours.
