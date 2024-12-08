@@ -1,0 +1,88 @@
+---
+layout: post
+title: Passed the M102 course
+date: 2013-06-22 17:55:46.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- dba
+- mongodb
+meta:
+  _edit_last: '6246633'
+  publicize_reach: a:2:{s:7:"twitter";a:1:{i:129558;i:20;}s:2:"wp";a:1:{i:0;i:0;}}
+  publicize_twitter_user: 123579D
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/06/22/passed-the-m102-course/"
+---
+<p>Last April I decided to enroll in the M102 MongoDB DBA course at <a href="http:// education.10gen.com" target="_blank" title="10gen's MongoDB education site">education.10gen.com</a>. In the past I wrote a <a title="Experimenting with MongoDB’s spatial indexing | iPROFS Technology Blog" href="https://bitly.com/L8kD38" target="_blank">blog post</a> about the <a title="Geospatial Indexes and Queries - MongoDB documentation" href="http://docs.mongodb.org/manual/applications/geospatial-indexes/" target="_blank">geospatial indexing</a> possibilities of MongoDB and wanted to learn more. When I saw this course was available and starting soon, I saw it as an opportunity to expand my knowledge and putting some free time to good use.</p>
+<p>I often thought about documenting my progress, but for some reason it didn't happen until now.<br />
+<!--more--></p>
+<p>The first thing I noticed was that the course would last for seven weeks. It seemed long at first, but the chosen instruction format allows you to set your own pace. This means that you get a week to work through the material, but if needed it could be rushed in a few hours time. In fact that was something I did during some weekends when the deadline was approaching. </p>
+<h1>Getting comfortable</h1>
+<p>The first week started light. There was an introduction to the course, there was a basic overview of the product and finishing the homework was a breeze. In the end I felt a bit cheated, because the video material rarely went further than what I see at a basic conference presentation. Actually it might be more like a basic workshop where one would stop after installing the product. </p>
+<p>That's basically what happened, I learned a bit about NoSQL databases in general and what differentiates MongoDB. At the end of the first week MongoDB was running and everything was in working order. The homework assignments were mere assertions to make sure all students would have their environment set up correctly for the course.</p>
+<h1>A flood of CRUD</h1>
+<p>During the second week I got familiar with <a href="http://docs.mongodb.org/manual/crud/" title="CRUD | MongoDB documentation" target="_blank">the basics</a> of what the users and developers will do to database systems. These weeks mapped my knowledge of relation databases and SQL to the way to do queries and updates in MongoDB. This basic knowledge is just a foundation and not much elaborated on in this course. I expect there will be more time spent on querying and inserting during a M101 course, either the M101J for Java or the M101P for Python and other languages.</p>
+<p>On top of this basic knowledge I got a crash course on the <a href="http://docs.mongodb.org/manual/aggregation/" title="Aggregation framework | MongoDB documentation" target="_blank">aggregation framework</a> during the third week. In SQL you use <code>GROUP BY</code> to, for instance, filter and sum people by their favorite ice cream flavor. The aggregation framework in MongoDB can do the same. There is however a difference in the way the aggregation is structured. With relational databases you would combine data from different tables with <code>JOIN</code>s and create a monolith SQL statement. When you aggregate with MongoDB you push it through several steps. Maybe this is best explained with an example.</p>
+<p>Let's say we have a database listing all the ice cream favorites of Europeans. What we want to know is the total number of strawberry ice cream lovers in the Benelux (Belgium, The Netherlands and Luxembourg). With SQL you group by flavor from a join on country and person restricting it to strawberry. From the top of my head a possible SQL query might look like this:<br />
+[code language="sql"]<br />
+SELECT flav.description, count(*)<br />
+FROM flavor flav<br />
+    JOIN person p ON p.flavor_id = flav.id<br />
+    JOIN address ad ON p.address_id = ad.id<br />
+WHERE flav.desc LIKE 'Strawberry'<br />
+    AND ad.country IN ('Belgium', 'The Netherlands', 'Luxembourg')<br />
+GROUP BY flav.description<br />
+[/code]</p>
+<p>In contrast, MongoDB's aggregation framework gives you all the data in a collection and an array of small steps shape it into the result. Perhaps the following list of steps is chosen.</p>
+<ol>
+<li>Given the collection of ice cream lovers in Europe</li>
+<li>restrict to the ones in Benelux who love strawberry</li>
+<li>sum these</li>
+</ol>
+<p>Which might look like below in the mongo shell:<br />
+[code language="javascript"]<br />
+db.icecreamlovers.aggregate([<br />
+    {'$match': {<br />
+        'country': {'$in': ['Belgium','The Netherlands','Luxembourg']},<br />
+        'favourite': 'Strawberry'<br />
+        }},<br />
+    {'$group': {<br />
+        '_id': 'favourite',<br />
+        'total': { '$sum': 1 }<br />
+        }}<br />
+    ]);<br />
+[/code]</p>
+<p>Personally the last approach seems something that is easier to debug, because you can add steps until you reach the desired result instead of adding another layer around all your earlier parts.</p>
+<h1>Putting on the DBA hat</h1>
+<p>The emphasis of this course is on administration, which really starts off in the last four weeks. That doesn't mean the first three weeks are negligible, they gave me the basic understanding of what a non-DBA user experiences and expects.</p>
+<p>Starting from the fourth week, the subjects are <a href="http://docs.mongodb.org/manual/replication/" title="Replication | MongoDB documentation" target="_blank">availability</a>, <a href="http://docs.mongodb.org/manual/indexes/" title="Indexes | MongoDB documentation" target="_blank">performance</a> and <a href="http://docs.mongodb.org/manual/sharding/" title=" Sharding | MongoDB documentation" target="_blank">scalability</a>. The M102 course covers a broad spectrum of configuration and optimization topics. Of all the subjects I got to learn the basics. What I consider most essential is that I learned about the trade-offs you need to make on indexes and how to analyze poor performance.</p>
+<p>Another thing mentioned during the course are the pitfalls of certain configuration choices. One of them is the usage of a <a href="http://docs.mongodb.org/manual/core/indexes/#index-type-sparse" title="more information on sparse indexes" target="_blank">sparse index</a> on a collection. This isn't specifically a DBA topic because any MongoDB user should be aware of it. In short a sparse index only builds up an index for documents that contain a certain field. Since not all documents contain that particular field, the total number of indexed documents might be less than the number of documents in the collection. This can cause some nasty effects on not only the  query, but might affect the result after sorting too. In the first case not all documents are considered in a query. The second case is more subtle, not all documents might be returned after sorting. To be more clear, let's assume  a query that uses a sparse index <em>A</em> for sorting. The query matches <em>n</em> documents, but only <em>m</em> of those have references in sparse index <em>A</em>. This means your result will have <em>m</em> documents. It might go unnoticed but can have devastating results in aggregations.</p>
+<h1>It can be as hard as you want</h1>
+<p>You rarely need to consult the online MongoDB documentation to finish the course successfully. The video material covers most of what you need to pass. What you get out of this course depends on how serious you go about studying the material. In my opinion anyone with patience and time to watch the videos can pass. A motivated person will benefit from experimenting with the course material and studying the documentation. </p>
+<p>The total average of the homework assignments counted equal to the score you get on the final assignments. The lowest scores are dropped, so if you had a bad week you're still able to get a perfect grade. In order to pass you need to get a score of 65%, which is easy to achieve on your own. In my opinion there are enough aids to help someone pass the course. There is a wiki, discussion board and a bunch of other ways to communicate with fellow students, teaching assistants and course staff. To me the only way to not pass is by divine intervention or dropping out.</p>
+<p>Should you choose to dive in a little deeper, for instance into performing read/write operations on an unavailable shard or security of mongo instances and data, then it get's a bit tougher. Maybe it should be considered more advanced stuff or too time-consuming to teach and test every possible detail. Therefore you won't find it as part of the curriculum, but it is left for the curious to read or figure out by experiment.</p>
+<p>In case you are curious, an unavailable shard is bad because it effectively means a whole range of shard keys is unavailable for both read and write operations until the shard is back up in working order. </p>
+<h1>Rough edges</h1>
+<p>A few times it took me a while to understand the concepts or finish a task. In most cases it was because
+<ul>
+<li>I got distracted during long videos,</li>
+<li>annoyed by short videos with quizzes</li>
+<li>or just didn't read the question properly.</li>
+</ul>
+<p>It's also easy to imagine that a cultural or language barrier might give somebody trouble to get through the course. It takes effort to reach <a href="https://en.wikipedia.org/wiki/Cultural_competence" target="_blank">cultural competence</a>, but it's not impossible.</p>
+<p>During the course I made some assumptions on a data set with US Postal codes that were wrong or incomplete (which is also wrong). Looking back at it assuming that each document would list the total population of a city instead of the population in that zip code was something I should have known. Getting stuck on this kind of assumptions slowed my progress in the course. A general tip would be to always get a feeling of the structure of given documents in collections with <a href="http://docs.mongodb.org/manual/reference/method/db.collection.findOne/" target="_blank">findOne</a>, possibly using it's projection parameter to restrict the data and knowing some basic Javascript to process the cursor returned from a <a href="http://docs.mongodb.org/manual/reference/method/db.collection.find/" target="_blank">find</a>.</p>
+<p>There are some tricky parts to MongoDB. Luckily the video material covers the most common problems you might encounter. My approach was to watch all the videos, even if I thought I knew the subject already. When something wasn't clear or sparked my interest I went over the steps of the tutor or referred to the documentation. Because I was familiar with some of the material I expected to learn few new things in the first weeks.</p>
+<p>In the end I did learn a lot. The most valuable thing I learned from the <em>DBA weeks</em> is how to analyze a poorly performing system and fix it. Without regular practice most of this new knowledge will fade away, so I plan to steer my career towards more MongoDB jobs.</p>

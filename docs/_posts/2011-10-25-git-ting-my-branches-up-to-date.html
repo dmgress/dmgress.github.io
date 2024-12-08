@@ -1,0 +1,53 @@
+---
+layout: post
+title: Git-ting my branches up to date
+date: 2011-10-25 14:10:32.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- git
+- work environment
+meta:
+  _edit_last: '6246633'
+  _wpas_done_twitter: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2011/10/25/git-ting-my-branches-up-to-date/"
+---
+<p>Once upon a time a developer created a huge number, as far as more than five is considered huge, of feature branches; each of them based on a master branch and there wasn't any significance to the actual timestamps of commits. "Soon", he vowed, "... soon, I shall integrate all features! Soon but not today." So he created a short script to update all branches to the latest and greatest of the master branch, adding some color for his own pleasure and gracefully failing the merges in case of any errors. The following piece of code was the result.<br />
+[sourcecode language="bash"]<br />
+#!/bin/sh</p>
+<p># Lets define some nice colours<br />
+txtbld=$(tput bold)<br />
+txtrst=$(tput sgr0)<br />
+txtred=$(tput setaf 1)<br />
+txtwht=$(tput setaf 7)<br />
+txtblu=$(tput setaf 4)</p>
+<p># maybe I want a list of all failed updates<br />
+fails=&quot;&quot;</p>
+<p>git for-each-ref 'refs/heads/*' | \<br />
+   while read rev type ref; do<br />
+      branch=$(expr &quot;$ref&quot; : 'refs/heads/\(.*\)' )<br />
+      revs=$(git rev-list $rev..master)<br />
+      if [ -n &quot;$revs&quot; ]; then<br />
+         # Ok, so this branch isnt up to date, mention it<br />
+         echo -e &quot;${txtbld}$branch needs update${txtrst}&quot;<br />
+         git rebase master $branch<br />
+         if [ -d &quot;`git rev-parse --git-dir`/rebase-apply&quot; ]; then<br />
+            git rebase --abort # fail gracefully, so basically abort and mention it<br />
+            echo -e &quot;${txtred}rebase aborted for branch ${txtblu}${txtbld}$branch${txtrst}&quot;<br />
+            fails=&quot;$fails $branch&quot;<br />
+         fi<br />
+      fi<br />
+   done<br />
+[/sourcecode]</p>
+<p>After months this turned out to be a very useful script. It saved him from tediously updating each feature branch he had and he never forgot to update them all. </p>

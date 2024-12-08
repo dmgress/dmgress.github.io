@@ -1,0 +1,35 @@
+---
+layout: post
+title: How to pick an insane FQDN for your cloud server
+date: 2014-02-12 08:18:45.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags: []
+meta:
+  _edit_last: '6246633'
+  _publicize_pending: '1'
+  publicize_facebook_url: https://facebook.com/10151953510970028
+  _wpas_done_6264579: '1'
+  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:565720027;b:1;}}
+  publicize_twitter_user: 123579D
+  publicize_twitter_url: http://t.co/mBeENc2mup
+  _wpas_done_129558: '1'
+  publicize_linkedin_url: http://www.linkedin.com/updates?discuss=&scope=29914379&stype=M&topic=5839266122108928000&type=U&a=046C
+  _wpas_done_6264594: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2014/02/12/how-to-pick-an-insane-fqdn-for-your-cloud-server/"
+---
+<p>Yesterday I learned the logic behind the fully qualified domain naming convention of one of the AWS instances.</p>
+<p>The FQDN had the form <code>[environment][year][month][day][hour][minute].company.com</code>, which means a test server started at 2014-01-20 08:01 would have the address <code>test201401200801.company.com</code>. It is hard to reach this server should you ever need to know it's address for something important, perhaps a dashboard with health status vital to the operations team. The solution to the last bit is to use a more sensible name and then tie it to the server in DNS with a CNAME.</p>
+<p>Although I had bookmarked the URL for the server I wasn't aware there was some logic to the name and definitely not what the format was. So yesterday I heard that the naming convention existed purely because nobody bothered how to manage puppet agents and their certificates properly. The quick solution was to generate a unique name based on the format since at that time it wasn't likely that instances would spin up fast enough to cause a collision.</p>
+<p>Strangely my improved naming convention of using the Epoch time or a SHA-1 hash value weren't acceptable alternatives :)</p>

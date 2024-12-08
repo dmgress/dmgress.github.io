@@ -1,0 +1,27 @@
+---
+layout: post
+title: How I fixed my PostgreSQL re-install problems
+date: 2009-10-14 17:49:33.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- postgresql
+- work environment
+meta:
+  _edit_last: '6246633'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2009/10/14/fixed-my-postgres-re-install-problems/"
+---
+<p>As mentioned in an earlier post, I had some trouble re-installing PostgreSQL. For some obscure reason re-installing PostgreSQL (postgres) locally wasn't possible anymore. Over time something (or someone, probably me) changed the system in a way that would always get me errors in the last steps of the PostgreSQL Windows installer. The part were the installer tries to set up the basic database structures.</p>
+<p>The first time I met the problem I didn't bother fixing it, the central database worked just fine for me. As time passed tracing back your steps becomes harder. As long as there was no pressure and time to spend on the problem, I stopped after a few fruitless attempts at finding the culprit on each try. This time was different. Determined to squash this inconvenience permanently, I decided not to stop searching. After a while some mailing posts seemed to lead to a solution to the problem.</p>
+<p>It turned out the environment variable <em>COMSPEC</em> had a value that confused the install script of the PostgreSQL installer. The value was not a path to a shell executable like command.com or cmd.exe. The installer script being written in vbscript would run differently when a system or user variable with that name existed and the value was not a valid path to a shell executable. This seemed is probably an interpreter feature and not a bug in the script. When I dropped the variable, the install finishes successfully. I didn't look for further, but one of the posts said that restoring the variable to its original value wouldn't pose any problems.</p>

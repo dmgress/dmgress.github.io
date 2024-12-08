@@ -1,0 +1,31 @@
+---
+layout: post
+title: Getting git garbage collection
+date: 2009-12-18 12:51:10.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- git garbage
+meta:
+  _edit_last: '6246633'
+  _wpas_done_twitter: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2009/12/18/getting-git-garbage-collection/"
+---
+<p>Nobody likes a mess. That's quite bold, so I'll soften it down to few people like a mess all the time. When there is mess there is less fun and clarity. If you don't want your (code)base to be a mess you refactor; if your <span style="text-decoration:line-through;">pigsty</span> house is messy then you have to scrub it. So it's  like kind of optimizing whatever your clean up. Neat! But what about your repository?</p>
+<p>Now I hear you asking, "what about it? Isn't the version control system supposed to do that on its own?" Short answer, I agree it seems a bit of a drag to ask developers to do it themselves and version control systems should be doing it themselves. Sometimes software is like people, because it's written by them. Some people don't like cleaning regularly, others clean only when needed and still others don't feel the need to clean. Cleaning optimizes, so clearly there is benefit in a system doing it on its own.</p>
+<p>Is there a golden rule when to clean? No, there isn't. The moment you start thinking you should actually do some cleaning is usually too late. That's the time when cleaning will actually take more time then when you would have regularly cleaned. On the other hand, cleaning all the time is a bit excessive. There has to be a middle road. Some little voice saying that you might want to consider cleaning up, possibly.</p>
+<p>Enter git. Most of the time you'll get a warning from git when there are too many loose objects. The warning hints that cleaning might be beneficial. Well the wording isn't quite up to par, it just mentions something about loose objects and gives you a choice. Actually reading a whole speech about the benefits of cleaning (main point optimization) is more annoying. Having the option to read about it might be nice.</p>
+<p>Some parts of the git system actually do clean up after themselves. For instance, when you make a huge mess it's probably best to clean up after yourself the moment you are done. Delaying only makes the task seem worse. Big changes in your git repository might trigger garbage collection of git, with the extra --auto option. Using --auto makes garbage collection a simple request. It's only executed when needed, because it might slow down the development process when garbage collection is executed.</p>
+<p>Git garbage collection plays nice and safe, by which I mean there are some safety measures built-in. Did you know that not everything gets cleaned up? I didn't, just assumed it did. Never assume, I know... So what's the safety measure? Only remove unreferenced stuff older than a certain age. Why? because that way it's still easier to go back to a previous mistake I think. So far I haven't met a situation where I benefited from this safety measure. Some day I might, so I'm glad it's there anyway. By default any unreferenced object older than two weeks gets vaporized.</p>
+<p>It's possible to lower that barrier when it annoys you. If your absolutely certain that nobody else is touching your repository you might even want to prune it just once. It gets rid of the dust instantly! But then you apparently have to be absolutely certain nobody wants to do something to the repository. What have I learned? Short term solution to annoying pop ups in git gui asking to me compress the database every time I start it and not much seems to happen, prune it. Long term solution, lower the barrier using gc.pruneExpire.</p>

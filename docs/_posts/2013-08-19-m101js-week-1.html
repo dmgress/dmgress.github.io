@@ -1,0 +1,47 @@
+---
+layout: post
+title: M101JS Week 1
+date: 2013-08-19 18:00:41.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- M101JS Aug 2013
+- MongoDB
+- Software development
+tags:
+- m101js
+- mongodb
+- nodejs
+meta:
+  _edit_last: '6246633'
+  geo_public: '0'
+  publicize_twitter_user: 123579D
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/08/19/m101js-week-1/"
+---
+<p>On August 12th the first M101JS (MongoDB for Node.JS developers) course started. Previously I completed both the M101J (MongoDB for Java developers) and <a title="Passed the M102 course" href="http://gressie.wordpress.com/2013/06/22/passed-the-m102-course/" target="_blank">M102 (MongoDB for DBAs)</a> courses available through <a title="10gen Education" href="https://education.10gen.com/" target="_blank">10gen's education site</a>.</p>
+<p>What new material could I gain from completing yet another developers course? The main reason is that <a title="node.js website" href="http://nodejs.org/" target="_blank">Node.JS</a> caught my attention as a development platform. The second reason is that it's being a while since I tinkered with MongoDB. When I finish this course I will have refreshed my MongoDB knowledge <strong>and</strong> got some experience with Node.JS in the form of a blog application.</p>
+<p>I decided to document my progress in (at least) weekly summaries. This will be part one of seven.</p>
+<p><!--more--></p>
+<p><span style="line-height:1.6;">For this series of blog posts I will structure each post into an introduction (you just passed it) and two sections. The first section, <em>Lectures</em>, will summarize what I learned from the videos and related examples. In the second section, <em>Homework</em>, I will mention what I learned from practicing the homework assignments and anything I might have done extra because of it.</span></p>
+<h1><span style="line-height:1.6;">Lectures</span></h1>
+<p><span style="line-height:1.6;">From the first few video lectures it is already clear that the mindset of a developer should be different. Most of my interactions with JavaScript, and I believe many developers, never went further than </span><span style="line-height:1.6;">simple HTML DOM manipulations</span> or form validation using frameworks like <a title="JQuery homepage" href="http://jquery.com/" target="_blank">JQuery</a><span style="line-height:1.6;">. Most of those little JavaScript tasks can be done in a synchronous manner, blocking until the task is completed. In order to write highly responsive applications with JavaScript it is best to make asynchronous calls, something </span><span style="line-height:1.6;">most commonly seen when using </span><a style="line-height:1.6;" href="http://en.wikipedia.org/wiki/Ajax_(programming)" target="_blank">AJAX</a> to build the user interface of a website<span style="line-height:1.6;">. The outcome of tasks is dictated by responding to feedback whenever it might arrive, or timing out in an appropriate way. In other words, there is heavy use of callback functions which </span><a style="line-height:1.6;" href="http://stackoverflow.com/questions/11233633/understanding-asynchronous-code-in-laymans-terms" target="_blank">might not be easy to understand</a> because the data flow isn't easily captured in the code<span style="line-height:1.6;">.</span></p>
+<p>Even if asynchronous programming is new to me, MongoDB isn't. This means I can focus on understanding the JavaScript part, since I probably already know the Mongo way. If the setup and difficulty level of this course is the same as the others I worked through, then most of the code will be handed to me and all I have to do is complete some part of a function until it returns the correct value. I do hope some of the evaluation scripts will be able to weed out any inefficient JavaScript I will inevitably produce.</p>
+<p>Skimming through the curriculum I saw that the <a href="http://mongoosejs.com/" target="_blank">Mongoose </a>library will only be mentioned in week 7. From previous experience I know that means it's primarily bonus material to the course. This means my fellow students and I will wrestle with the <a title="Mongo DB Native NodeJS Driver (GitHub)" href="https://github.com/mongodb/node-mongodb-native" target="_blank">Node.JS Mongo driver</a> throughout the course. I expect to learn how to optimize MongoDB interaction in ways that would mostly be abstracted by libraries like Mongoose. At the moment my opinion is that Mongoose is to Node.JS and JavaScript like <a href="http://www.hibernate.org/" target="_blank">Hibernate </a>is to Java. Most will use it as a decent performing  intermediary between the data in storage and the objects that will be manipulated by the application.</p>
+<h1>Homework</h1>
+<p>At the end of the week you've got to do your homework. So that's what I did. Actually it's ok to miss a week of homework, because the week will the lowest scores (or a random week if you're perfect) won't count in the grading. I decided to do the homework assignments anyway, because for the first week it's usually configuration checks of your learning environment.</p>
+<p>This time I put considerable time into setting up my learning environment. The first plan was to set it up in the cloud. I would use some <a href="https://mongolab.com/" target="_blank">Mongo hosting service</a> and an online IDE to do all the assignments. Remembering that some weeks might require you to start <a title="MongoDB replication" href="http://docs.mongodb.org/manual/replication/" target="_blank">several mongo server instances</a> or load <a title="MongoDB sharding" href="http://docs.mongodb.org/manual/sharding/" target="_blank">lots of data</a> into the database, this was not an option anymore. The second plan was to mix cloud and a local virtual machine. I failed to properly set up <a href="https://c9.io/" target="_blank">Cloud9 IDE</a> on my virtual machine, which made me go with the last plan. The last plan is to just use a virtual machine. No hosting, no cloud, just a virtual machine on my laptop.</p>
+<p>Setting up the environment isn't that difficult if you understand the minimum requirements of MongoDB and the course. Through the course you can use a 32-bit system, but you will get some <a href="http://blog.mongodb.org/post/137788967/32-bit-limitations" target="_blank">nagging remarks from MongoDB</a> saying it won't run in optimal and recommended configuration.</p>
+<p>I went with a 64-bit <a title="CentOS home page" href="https://www.centos.org/" target="_blank">CentOS</a> <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a> virtual machine with 3Gb of RAM memory available to it. MongoDB required met to have at least 3Gb of free disk space, without it the server wouldn't start in normal mode. This made me create a virtual hard disk that could dynamically expand until 12Gb if needed. Most of the time you won't used much disk space, it just needs to be available. Another option would have been to set a flag for MongoDB to use <a title="MongoDB small files configuration option" href="http://docs.mongodb.org/manual/reference/configuration-options/#smallfiles" target="_blank">smaller journaling files</a>. I specifically chose not to use smaller journaling files for now.</p>
+<p>CentOS came with a default <a href="http://wiki.centos.org/HowTos/Network/IPTables" target="_blank">firewall configuration</a> that prevented me from accessing any service but SSH from outside of the machine. A while ago I decided to <a title="How I decided to setup network interfaces on my virtualbox machines" href="http://gressie.wordpress.com/2012/10/18/how-i-decided-to-setup-network-interfaces-on-my-virtualbox-machines/" target="_blank">always have two network interfaces</a> in my virtual machines, one in a private network and the other able to download through a NAT configuration. This meant I just had to enable any traffic on the internal network interface and I would be ready to use the system.</p>
+<p>I'm looking forward to what next week will bring. Of course I will write about that as well.</p>

@@ -1,0 +1,75 @@
+---
+layout: post
+title: Generics are weird, or I am weird
+date: 2009-11-25 09:24:06.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- java
+- testing
+- weird
+meta:
+  _edit_last: '6246633'
+  _wpas_done_twitter: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2009/11/25/generics-are-weird-or-i-am-weird/"
+---
+<p>Yesterday, late afternoon, I stumbled across a compilation problem for one of my unit tests in Java. More specifically, compilation in Eclipse seemed to work fine but using Maven2 and the java compiler included in version 1.6.0_14 it complained about not being able to find the proper method.</p>
+<p>Given the two classes below (modified for brevity, of course):</p>
+<p>[sourcecode language="java"]<br />
+import java.util.*;</p>
+<p>public class Foo&lt;t&gt; {<br />
+   private List&gt; children = new ArrayList  ();</p>
+<p>   public List&gt; getChildren() { return children; }</p>
+<p>   public Foo addChild(Foo child) { children.add(child); }<br />
+}<br />
+[/sourcecode]</p>
+<p>[sourcecode language="java" highlight="7,18"]<br />
+import static org.hamcrest.Matchers.*;<br />
+import static org.junit.Assert.*;</p>
+<p>import org.junit.*;</p>
+<p>public class FooTest {<br />
+   Foo parent, child;</p>
+<p>   @Before<br />
+   public void setUp (){<br />
+      parent = new Foo ();<br />
+      child = new Foo ();<br />
+      parent.addChild(child);<br />
+   }</p>
+<p>   @Test<br />
+   public void childAdded(){<br />
+      assertThat(parent.getChildren(), hasItem(child));<br />
+   }<br />
+}<br />
+[/sourcecode]</p>
+<p>For some reason it seems that omitting the type for Foo at line 7 makes Java drop the type of the <code>getChildren</code> method. The compiler will infer the return type of that method as a <code>List</code> (no generics). The type of the <code>hasItem</code> method from the hamcrest matchers, in line 18, is typed as <code>Matcher</code>. The result, during compilation the compiler will complain about line 18 in the test class. My current settings in Eclipse show this unchecked invocation as a warning. Nevertheless it compiles and runs. The standard Java compiler is very strict in this matter.</p>
+<p>The quick solution is simple, just add a type to line 7 or do a cast at line 18. Doing both is overkill, but works too. Adding the type at line 7 is the best choice, because that way there is no need to explicitly cast every call to <code>getChildren</code> where this problem occurs.</p>
+<p>[sourcecode language="java" highlight="7,18"]<br />
+import static org.hamcrest.Matchers.*;<br />
+import static org.junit.Assert.*;<br />
+import java.util.*;<br />
+import org.junit.*;</p>
+<p>public class FooTest {<br />
+   Foo &lt;Object&gt; parent, child;</p>
+<p>   @Before<br />
+   public void setUp (){<br />
+      parent = new Foo ();<br />
+      child = new Foo ();<br />
+      parent.addChild(child);<br />
+   }</p>
+<p>   @Test<br />
+   public void childAdded(){<br />
+      assertThat((List&lt;Object&gt;) parent.getChildren(), hasItem(child));<br />
+   }<br />
+}[/sourcecode]</p>
+<p>There might be a way to avoid this inconvenience by some simple changes to the Foo source code, changes I haven't discovered yet. If there are any then I <strong>will</strong> find it!</p>
