@@ -10,6 +10,7 @@ version = 1
 # the `[install]` section.
 [install]
 ruby.pkg-path = "ruby"
+jekyll.pkg-path = "jekyll"
 # hello.pkg-path = "hello"
 # nodejs = { version = "^20.15.1", pkg-path = "nodejs" }
 

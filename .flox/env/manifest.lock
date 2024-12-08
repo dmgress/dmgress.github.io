@@ -3,6 +3,9 @@
   "manifest": {
     "version": 1,
     "install": {
+      "jekyll": {
+        "pkg-path": "jekyll"
+      },
       "ruby": {
         "pkg-path": "ruby"
       }
@@ -24,6 +27,126 @@
   },
   "packages": [
     {
+      "attr_path": "jekyll",
+      "broken": false,
+      "derivation": "/nix/store/akll5a36hh013plcpkhvna42i84b23a2-jekyll-4.3.4.drv",
+      "description": "Blog-aware, static site generator, written in Ruby",
+      "install_id": "jekyll",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "name": "jekyll-4.3.4",
+      "pname": "jekyll",
+      "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "rev_count": 716003,
+      "rev_date": "2024-12-03T07:54:31Z",
+      "scrape_date": "2024-12-04T03:55:34Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.3.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/nf6b08h3mp2pifmsxg1bg05pw1fqxnfb-jekyll-4.3.4"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jekyll",
+      "broken": false,
+      "derivation": "/nix/store/gns70caxf3hgdya3kmnvd3nzpyr4yl4h-jekyll-4.3.4.drv",
+      "description": "Blog-aware, static site generator, written in Ruby",
+      "install_id": "jekyll",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "name": "jekyll-4.3.4",
+      "pname": "jekyll",
+      "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "rev_count": 716003,
+      "rev_date": "2024-12-03T07:54:31Z",
+      "scrape_date": "2024-12-04T03:55:34Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.3.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/dv9jxnsfjcsah52dqbv5sz1dv37fdrlw-jekyll-4.3.4"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jekyll",
+      "broken": false,
+      "derivation": "/nix/store/1q2fnz9f670nff43ks3v8fs4ndjpx4vx-jekyll-4.3.4.drv",
+      "description": "Blog-aware, static site generator, written in Ruby",
+      "install_id": "jekyll",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "name": "jekyll-4.3.4",
+      "pname": "jekyll",
+      "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "rev_count": 716003,
+      "rev_date": "2024-12-03T07:54:31Z",
+      "scrape_date": "2024-12-04T03:55:34Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.3.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/pan16sdhwa2dkdi583vyk22gjvf3l6n6-jekyll-4.3.4"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jekyll",
+      "broken": false,
+      "derivation": "/nix/store/ym4brx38x9fbrzs8nl3hbqixm1r3diqx-jekyll-4.3.4.drv",
+      "description": "Blog-aware, static site generator, written in Ruby",
+      "install_id": "jekyll",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "name": "jekyll-4.3.4",
+      "pname": "jekyll",
+      "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
+      "rev_count": 716003,
+      "rev_date": "2024-12-03T07:54:31Z",
+      "scrape_date": "2024-12-04T03:55:34Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.3.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/xl7b5kdy8lm7sx2gxg44wlmc5sp041zx-jekyll-4.3.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
       "attr_path": "ruby",
       "broken": false,
       "derivation": "/nix/store/zi6zfr4icvqllhjk6cnap9na0lhw0qlz-ruby-3.3.5.drv",
@@ -38,6 +161,7 @@
       "rev_date": "2024-12-03T07:54:31Z",
       "scrape_date": "2024-12-04T03:55:34Z",
       "stabilities": [
+        "staging",
         "unstable"
       ],
       "unfree": false,
@@ -68,6 +192,7 @@
       "rev_date": "2024-12-03T07:54:31Z",
       "scrape_date": "2024-12-04T03:55:34Z",
       "stabilities": [
+        "staging",
         "unstable"
       ],
       "unfree": false,
@@ -98,6 +223,7 @@
       "rev_date": "2024-12-03T07:54:31Z",
       "scrape_date": "2024-12-04T03:55:34Z",
       "stabilities": [
+        "staging",
         "unstable"
       ],
       "unfree": false,
@@ -128,6 +254,7 @@
       "rev_date": "2024-12-03T07:54:31Z",
       "scrape_date": "2024-12-04T03:55:34Z",
       "stabilities": [
+        "staging",
         "unstable"
       ],
       "unfree": false,
