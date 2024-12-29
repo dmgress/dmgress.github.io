@@ -1,0 +1,37 @@
+---
+
+title: Getting a diff between two commits with git-svn when you only know the subversion
+  revisions
+date: 2012-02-09 13:39:33.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags: []
+meta:
+  _edit_last: '6246633'
+  publicize_results: a:1:{s:7:"twitter";a:1:{i:89917968;a:2:{s:7:"user_id";s:7:"123579D";s:7:"post_id";s:18:"167588461786824706";}}}
+  _wpas_done_twitter: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2012/02/09/getting-a-diff-between-two-commits-with-git-svn-when-you-only-know-the-subversion-revisions/"
+---
+<p>Given you have the need for git and prefer to use it as your personal SCM for everything, but some projects will not switch from Subversion just because of you. Then how would you get a diff for a file when you only know the subversion revision numbers?</p>
+<p>The current version of git installed on my laptop is 1.7.5.4. So far I was unable to find a way for git-svn to give me what I need, although I did find some useful information. At least useful is the fact that<br />
+[sourcecode lang="bash"]log --show-commit -r &lt;rev&gt; --oneline | awk '{print $3}'[/sourcecode]<br />
+Will show the git commit for revision &lt;rev&gt;.</p>
+<p>Knowing this, that led to me writing this small script, which will get you a diff between two commits of which you only know the subversion revisions.<br />
+[sourcecode lang="bash"]<br />
+#!/bin/sh<br />
+r2hash () {<br />
+&amp;nbsp; &amp;nbsp;git svn log --show-commit -r $1 --oneline | awk '{print $3}'<br />
+}</p>
+<p>git diff `r2hash $1` `r2hash $2` -- $3<br />
+[/sourcecode]</p>

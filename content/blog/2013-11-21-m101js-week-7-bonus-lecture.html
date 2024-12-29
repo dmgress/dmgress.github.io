@@ -1,0 +1,48 @@
+---
+
+title: M101JS Week 7 bonus lecture
+date: 2013-11-21 10:34:59.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- M101JS Aug 2013
+- MongoDB
+- Software development
+tags:
+- m101js
+- mongodb
+- mongoosejs
+- nodejs
+meta:
+  _edit_last: '6246633'
+  publicize_twitter_user: 123579D
+  publicize_twitter_url: http://t.co/4cOtULVZvk
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/11/21/m101js-week-7-bonus-lecture/"
+---
+<p>On August 12th the first M101JS (MongoDB for Node.js developers) course started. Previously I completed both the M101J (MongoDB for Java developers) and M102 (MongoDB for DBAs) courses available through 10gen's education site.</p>
+<p>When I finish this course I will have refreshed my MongoDB knowledge and got some experience with Node.js in the form of a blog application. I decided to document my progress in (at least) weekly summaries. This will be the bonus part of week seven. You can read the final exam part <a title="M101JS Week 7" href="http://gressie.wordpress.com/2013/09/30/m101js-week-7/">here</a> and part six <a title="M101JS Week 6" href="http://gressie.wordpress.com/2013/09/23/m101js-week-6/">here</a>.</p>
+<p><!--more--></p>
+<p>After finishing the final exam I went on a trip to the Philippines. This meant I didn't have time to follow the bonus lecture or write about it. Today I can finally complete the series on M101JS, because I watched the bonus lecture on the use of Mongoose.</p>
+<p>In the lecture <a title="Aaron's GitHub page" href="https://github.com/aheckmann" target="_blank">Aaron Heckmann</a> introduces us to <a title="elegant mongodb object modeling for node.js" href="http://mongoosejs.com/" target="_blank">Mongoose</a> through an alternative take on the course's blog project. After a short introduction he steps through designing and implementing a blogging site using <a title="Node templating engine" href="http://jade-lang.com/" target="_blank">Jade</a>, an alternative to the <a title="A simple, powerful, and extendable JavaScript Template Engine" href="http://paularmstrong.github.io/swig/" target="_blank">Swig</a> library used in the course for HTML rendering, <a title="web application framework for node" href="http://expressjs.com/" target="_blank">Express</a>, Mongoose and of course MongoDB.</p>
+<p>Unlike the course, which provides all the structure for the blogging project and only required you to add a few lines, this lecture started from scratch. In the first video we go through the basics of setting up a Node.js project with the bare structure to start a web application. Quickly the subject got passed a minimal introduction to HTML rendering with Jade and into request routing with Express.</p>
+<p>After spending two videos on routing and error handling the lecture dove into authentication. To write a blog you need to log in, so Aaron showed how a simple authentication could be set up with all the views needed in the sixth and seventh videos. These videos gave a first introduction to Mongoose.</p>
+<p>Mongoose is an Object-Document Mapping (ODM) framework. In other words, where you would use an Object-Relational Mapping framework for relational databases, you can use Mongoose to map between the objects you use in the application and the documents stored in the database. This means Mongoose has many helpful features that will give you an advantage over dealing directly with the <a title="The Node.JS MongoDB Driver Manual" href="http://mongodb.github.io/node-mongodb-native/index.html" target="_blank">MongoDB native driver</a>. Several of these features got mentioned during the lecture.</p>
+<h2>Automatically create indexes</h2>
+<p>The first one I like to highlight is the ability to automatically <a href="http://mongoosejs.com/docs/api.html#schematype_SchemaType-index" target="_blank">create</a> <a href="http://mongoosejs.com/docs/api.html#schematype_SchemaType-unique" target="_blank">indexes</a> <a href="http://mongoosejs.com/docs/api.html#schematype_SchemaType-sparse" target="_blank">on</a> <a href="http://mongoosejs.com/docs/api.html#schema_date_SchemaDate-expires" target="_blank">collections</a>. Luckily it is possible to <a title="Mongoose Schema option autoIndex" href="http://mongoosejs.com/docs/guide.html#autoIndex" target="_blank">switch off</a>  this behavior to prevent a new version of the app from hogging memory and CPU time during a roll out in production. Mongoose also comes with a lot of helper functions to do basic processing of your data before it goes into the database. Think for instance about <a href="http://mongoosejs.com/docs/api.html#schema_string_SchemaString-trim" target="_blank">trimming</a> strings or converting them <a href="http://mongoosejs.com/docs/api.html#schema_string_SchemaString-lowercase" target="_blank">to lowercase</a>. As a demonstration the lecture showed the configuration to trim and convert an email address to lowercase before adding it to the database.</p>
+<h2>Link data across collections</h2>
+<p>Another feature helps link data from different collections into your object model. This functionality comes through the <a title="Mongoose population" href="http://mongoosejs.com/docs/populate.html" target="_blank">populate</a> method. In the lecture this helped to link an author to a blog post. There is some effort in making this possible. To retrieve the data, Aaron implemented a function that would be called after querying the database for the blog post.</p>
+<p>Depending on your usage population certainly comes with a penalty. If you only want to know the name of the author then loading author information for each of the blogs you retrieve will generate a lot of traffic and make the application unnecessarily slower. I can imagine you would create an extra field in the blog post just to store the author's name. There is a trade-off between having to update the entire blog post collection once that name changes or the penalty for querying for the author document with each blog post retrieved. Once again, this proves that developing with MongoDB as a back-end should make you think about the best way to structure your data.</p>
+<h2>Custom middleware</h2>
+<p>The last feature I like to highlight is the possibility to add functionality to your Mongoose model or schema. Models are objects, which means that like any JavaScript document you can add a function to it. This is a given feature because you're using JavaScript. It's more interesting to know you can add a function to your Schema, the mapping between object and document. This was demonstrated by Aaron in the video on editing blog posts. In the video he explains adding a new method called <code>edit</code> to the model. This method does some basic checking to make sure that only the author of the post can edit and update it.</p>
+<p>Although the end of the lecture was sudden, I did enjoy this extra lecture as it presented a better way of actual developing with MongoDB than the course did. Personally I think the lecture could have ended with some elaboration on the benefits (and drawbacks) of Mongoose in comparison with direct access to the MongoDB native driver. After browsing through the documentation for Mongoose it seems anything you would like to do with MongoDB is covered.</p>

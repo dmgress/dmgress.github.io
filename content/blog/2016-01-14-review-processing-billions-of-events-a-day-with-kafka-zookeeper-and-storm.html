@@ -1,0 +1,68 @@
+---
+
+title: 'Review: processing billions of events a day with Kafka, Zookeeper and Storm'
+date: 2016-01-14 06:45:41.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- kafka
+- python
+- server density
+- storm
+- tech talk
+- zookeeper
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '6246633'
+  geo_public: '0'
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '18731327958'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:129558;s:53:"https://twitter.com/123579D/status/687510925004259328";}}
+  _publicize_done_160958: '1'
+  _wpas_done_129558: '1'
+  publicize_twitter_user: 123579D
+  publicize_google_plus_url: https://plus.google.com/100987439898173204349/posts/cXSGFikc3dh
+  _publicize_done_13005036: '1'
+  _wpas_done_12987707: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=413146285&stype=M&topic=6093276627645587456&type=U&a=LNKu
+  _publicize_done_13005054: '1'
+  _wpas_done_12987722: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2016/01/14/review-processing-billions-of-events-a-day-with-kafka-zookeeper-and-storm/"
+---
+<p>On Tuesday January 12th 2016 four guys from Server Density, a server monitoring service, held a <a href="https://plus.google.com/u/0/events/c1jv1lkaoh7akrjaecr3q1u9fj8">tech chat session</a> about event processing with Kafka, Zookeeper and Storm. They use this setup to process lots of data points, which made me believe it is a good session to view for future reference or water cooler talk.</p>
+<p>It was the first time I followed a live webinar through Google Plus Hangouts on Air. Normally I expect to sit and wait for the webinar to start, but somehow this didn't work for me now. After some attempts I started viewing no later than 10 minutes in. This meant I missed introductions, but I guess not much else.</p>
+<p>The first part consisted of questions among the guys present in the room. Most of the questions geared to general architecture and (personal) experience with this event processing stack. Some details might have gone lost on me during the live feed because of room acoustics, microphone volume or because I was too tired to process some pronunciations.</p>
+<p>Once the questions of viewers started, I either paid less attention to the audio problems or they actually became less of a problem. This was also the point where all guys participated instead of the dialog that happened before.</p>
+<p>One of the first questions asked, and more of a suggestion, was to move the microphone. There weren't many questions coming in, but still more than time permitted. So I felt the need to vote on the ones I wanted answered. There weren't many people voting either, so I guess my votes did make some impact.</p>
+<p>It surprised me when they announced the last question to be answered. One or two more top questions seemed interesting, but time was limited and 5 minutes is too short for two questions.</p>
+<p>My general impression is that starting with Kafka, Zookeeper or Storm might seem difficult, but it won't take long until you get comfortable. Although the majority of the tooling is Java or JVM based software, the interfaces for other languages are sufficient. It won't matter if, like Server Density, most of your software is written in Python. You'll bump your head a few times, get past some (what seem to be) quirks and you'll realise it just works.</p>
+<p>Key points I got from this session:</p>
+<ul>
+<li>Redundancy prevents data loss</li>
+<li>In this case data is kept no longer then 10 minutes</li>
+<li>Most data is processed near real-time</li>
+<li>Latency between workers is reduced by either keeping them on the same machine or in close proximity</li>
+<li>You should monitor your network bandwidth usage, things might get chatty and you'll hit the limits</li>
+<li>Debugging is much easier if you keep things small, one process doing one thing. That way it's easier to reproduce bugs.</li>
+<li>Monitoring and improving the code keeps the process healthy</li>
+<li>People might ask two questions, which makes voting difficult. Vote or not if you don't care about the other question?</li>
+</ul>
+<p>Notes I made on giving tech talks or presentations:</p>
+<ul>
+<li>Google Hangouts is a nice way to give a talk and have viewers ask questions</li>
+<li>Test or rehearse tech talks to avoid sound problems</li>
+<li>Prepare some graphics to support the story</li>
+</ul>
+<p>I liked the format and content of this talk, so I will be sure to watch another session the next time it pops up in e-mail or other feed.</p>

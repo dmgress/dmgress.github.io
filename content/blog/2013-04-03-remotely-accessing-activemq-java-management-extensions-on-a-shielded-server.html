@@ -1,0 +1,48 @@
+---
+
+title: Remotely accessing ActiveMQ Java Management Extensions on a shielded server
+date: 2013-04-03 17:21:42.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- activemq
+- firewalls
+- java
+- jmx
+- monitoring
+- rmi
+meta:
+  _edit_last: '6246633'
+  publicize_twitter_user: 123579D
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/04/03/remotely-accessing-activemq-java-management-extensions-on-a-shielded-server/"
+---
+<p>In this post I will describe how I solved my problem with setting up Java Management Extensions (<a title="Official JMX site" href="http://java.sun.com/products/JavaManagement/" target="_blank">JMX</a>) on a remote ActiveMQ instance that wasn't aware of its WAN IP address and had at least one firewall to pass through. This was not just a simple matter of remotely accessing the JMX server, it got a bit more complex.<!--more--></p>
+<p>The assignment was to set up a way to set up remote monitoring on a few servers. Externally, that's over the internet, this server is known by the following fully qualified domain names (FQDN):</p>
+<ul>
+<li>web.example-server.net - a publicly known name with full access for anybody</li>
+<li>server-01.example-server.net - a name made up to identify the server in the network architecture, probably restricted access</li>
+</ul>
+<p>Both direct to a single external IP. Then through some network configuration I am not going to make myself familiar with, traffic ends up at a server located behind a firewall. This server has an IP address in the private range, for instance <code>172.16.12.125</code>, and the loop back address <code>127.0.0.1</code>.</p>
+<p>Remotely I am not able to connect to IP address <code>172.16.12.125</code> which is fine, so I will just connect to the external IP address instead. It works well for SSH and HTTP/HTTPS traffic, because both route properly through the outer firewall to the server.<br />
+<small><em>Side note: It's smarter to connect to the FQDN, in case of changes in IP addresses. On failure flush your DNS entries before a retry.</em></small></p>
+<p>In order to configure JMX with remote method invocation (RMI) to work through a firewall, you need to open certain port numbers. Then you force both the MBean server as well as the RMI server to use those ports. As a security measure you put a password on the JMX server, because you don't want some random person toying around with the settings.</p>
+<p>Reading a few blogs shows what works best for ActiveMQ:</p>
+<blockquote><p>... add the broker configuration, the management context, and the rmi hostname configuration [and port forward the RMI server and JMX connector ports] -- <a href="http://codedependents.com/2009/05/23/monitoring-activemq-using-jmx-over-ssh/" title="Monitoring ActiveMQ Using JMX Over SSH" target="_blank">CodeDependents - Monitoring ActiveMQ Using JMX Over SSH</a></p></blockquote>
+<p>In most cases that will work just fine, and if you still have trouble getting it right than the blog post <a href="http://kyrill007.livejournal.com/3517.html" title="Exposing ActiveMQ for remote monitoring through JMX" target="_blank">"Exposing ActiveMQ for remote monitoring through JMX"</a> might help. In this case this didn't work. The external IP address is the only way to access the server over the internet, but it isn't tied to the server's network interface.</p>
+<p>Without a valid IP address to bind to the server won't start. The IP address must be linked to a network interface accessible by ActiveMQ, so internal addresses would do but those are not accessible from the outside.</p>
+<h2>The solution</h2>
+<p>My solution is to use <code>server-01.example-server.net</code> as an alias for 127.0.0.1 in the <code>/etc/hosts</code> file of the server (or an equivalent location if you're not using Linux). Any request for DNS resolution of that FQDN made by this server will loop back to itself. By using the loopback address this solution is safe from changes of the internal IP address. The next step was using the FQDN as the <code>rmi.host</code> parameter in ActiveMQ's start script.</p>
+<p>With the proper ports opened and routing to the RMI and JMX ports, you can monitor ActiveMQ remotely on a network that's shielded behind a firewall and some other network configuration.</p>

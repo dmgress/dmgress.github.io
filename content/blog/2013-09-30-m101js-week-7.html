@@ -1,0 +1,49 @@
+---
+
+title: M101JS Week 7
+date: 2013-09-30 17:02:18.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- M101JS Aug 2013
+- MongoDB
+- Software development
+tags:
+- m101js
+- mongodb
+- nodejs
+meta:
+  _edit_last: '6246633'
+  _wpas_done_129558: '1'
+  publicize_twitter_user: 123579D
+  publicize_twitter_url: http://t.co/rMQArDqjR8
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/09/30/m101js-week-7/"
+---
+<p>On August 12th the first M101JS (MongoDB for Node.js developers) course started. Previously I completed both the M101J (MongoDB for Java developers) and M102 (MongoDB for DBAs) courses available through 10gen's education site.</p>
+<p>When I finish this course I will have refreshed my MongoDB knowledge and got some experience with Node.js in the form of a blog application. I decided to document my progress in (at least) weekly summaries. This will be the last of seven. You can read part <a title="M101JS Week 6" href="http://gressie.wordpress.com/2013/09/23/m101js-week-6/">six</a> here.</p>
+<p><!--more--></p>
+<p>This is the last week of the course. That means the final exam needs to be finished this week. It counts for 50% of the final grade. Aside from that, there is a bonus section on the Mongoose driver/ORM. The first thing I did was finish the <strong>open book</strong> exam, because I only had two days to complete the ten assignments before I went on holiday. Once the exam is finished, I can follow the Mongoose lectures.</p>
+<h1>Final Exam</h1>
+<p>Week seven was the first week I started to experience the limitations of using a virtual machine that didn't have enough disk space. My virtual machine was too small to contain the data sets of the final exam. There are several ways to resolve this problem. One way is to resize the disk of my virtual machine, the other option is to install MongoDB on my Windows Host. I chose the latter because it's less cumbersome and faster.</p>
+<p>Now that MongoDB was installed on Windows I wanted to run the exam assignments in Windows as well. Here I ran into another problem, for some reason I couldn't properly <code>npm install</code> on Windows. I got the errors:</p>
+<pre>... \Final3\node_modules\mongodb\node_modules\bson\build\bson.vcxproj(18,3): error MSB4019: The imported project "C:\Microsoft.Cpp.Default.props" was not found. Confirm that the path in the &lt;Import&gt; declaration is correct, and that the file exists on disk.
+... \Final3\node_modules\mongodb\node_modules\kerberos\build\kerberos.vcxproj(18,3): error MSB4019: The imported project "C:\Microsoft.Cpp.Default.props" was not found. Confirm that the path in the &lt;Import&gt; declaration is correct, and that the file exists on disk.</pre>
+<p>I ended up using an SSH tunnel from my virtual machine to the Windows host because changing the host or port of MongoDB to something different from the default would mean validation scripts might need to know about it as well. Keeping it to the default port on the <code>localhost</code> will give the least annoyances.</p>
+<p>The final exam's blog assignment was to add some functionality on a blog post's comment section. Aside from the description being wrong, clearly copy and paste from another M101 course, there wasn't much difficulty to it. The supplied sources had a big hint on how to update the comment section, which basically made this part of the exam just another code monkey assignment.</p>
+<p>The next assignment was to write code to connect to the MongoDB again. I got a little stuck. The code concerned removing orphaned entries, one collection had documents with arrays that had references to the other collection. I wasn't sure how or when to close the connection. Closing it too soon might leave some unwanted documents in the collection, but not closing it might keep the program running forever. I ended up using the Node.js driver's asynchronous features but still it felt slow.</p>
+<p>The answer to the question about replication and rollback made me read the documentation more thoroughly. After looking it up it pretty much verified my answer.</p>
+<p>There was a question about picking a shard key, and I think I did well on it.</p>
+<p>The last question was to read the output of explain and answer a multiple choice question with one or more answers. Those are the most annoying ones, I think I read it well. Actually the questions I am most concerned about are the ones where I had to remove orphaned entries, tell which indexes would be used or use the aggregation framework.</p>
+<p>I wasn't able to view the mongoose lectures so I will be saving that for the next post.</p>
+<h2>Exam results</h2>
+<p>Turns out I only got one question wrong. It was the multiple choice question on which indexes could be used to answer a query. I missed one, which means the whole answer is wrong. Therefore finished the course with a 95% score.</p>

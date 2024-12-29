@@ -1,0 +1,32 @@
+---
+
+title: My ssh agent admitted failure to sign a key!
+date: 2012-10-18 12:17:19.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- git
+- ssh
+meta:
+  _edit_last: '6246633'
+  publicize_twitter_user: 123579D
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2012/10/18/my-ssh-agent-admitted-failure-to-sign-a-key/"
+---
+<p>This morning I decided to push some commits to a git repository at Assembla.com. Unfortunately I forgot my pass phrase for the specific key I generated and ended up with:</p>
+<pre>Agent admitted failure to sign using the key.
+Permission denied (publickey,keyboard-interactive).
+fatal: The remote end hung up unexpectedly</pre>
+<p>Which is fine, so I just create a new ssh key using the same name and it should work... Sadly it didn't because some ssh-agent remembered that I don't remember the pass phrase, so it reported that to the server. Then the assembla server drops the connection. After some searching on the internet I learned that you should use <code>ssh-add [filename]</code> to add the key to my ssh key chain. That worked fine and I can push my commits again.</p>

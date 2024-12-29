@@ -1,0 +1,52 @@
+---
+
+title: How to show all options in a multi-select
+date: 2016-09-09 15:00:11.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- html
+- javascript
+- option
+- select
+meta:
+  _wpcom_is_markdown: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  publicize_google_plus_url: https://plus.google.com/100987439898173204349/posts/F6GnFi2e6PA
+  _publicize_job_id: '26653058116'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:129558;s:53:"https://twitter.com/123579D/status/774252006684844032";}}
+  _publicize_done_160958: '1'
+  _wpas_done_129558: '1'
+  publicize_twitter_user: 123579D
+  _publicize_done_13005036: '1'
+  _wpas_done_12987707: '1'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2016/09/09/how-to-show-all-options-in-a-multi-select/"
+---
+<p>For documentation purposes I needed to list all of the options in a multi-select. In other words, the number of lines or height of the select should be at least large enough to show every <code>option</code> in the <code>select</code> which has it's <code>multiple</code> attribute enabled.</p>
+<p>The fast fix is to use developer options to manually modify the height of the select. This works fine if you have just one select to modify, but for multiple it becomes repetitive and boring. Let's use the JavaScript console to <strong>automate it!</strong></p>
+<p>The objective is to iterate over all the <code>select</code> tags in the current page, count the number of <code>option</code> tags and change the <code>size</code> of the <code>select</code> accordingly.</p>
+<p><strong>Step 1</strong> is to open the developer console of the browser. In case of FireFox it's called <em>Web developer tools</em> and in Chrome it's called <em>Developer tools</em>. On my current system both are activated with the shortcut <code>Ctrl + Shift + i</code>.<br />
+<strong>Step 2</strong> is to enter the javascript console and paste the following code:</p>
+<p>[code lang="javascript"]<br />
+var selects = document.getElementsByTagName(&#039;select&#039;);<br />
+for(var i = 0; i &amp;lt; selects.length; i++){<br />
+  var s = selects[i];<br />
+  if (s.multiple) {<br />
+    var opts = s.getElementsByTagName(&#039;option&#039;);<br />
+    s.size = Math.max(s.size, opts.length);<br />
+  }<br />
+};<br />
+[/code]</p>
+<p>All <code>select</code> items should now display at maximum height necessary to see all the options.</p>

@@ -1,0 +1,76 @@
+---
+
+title: Tuning JMeter test plans with Sinatra
+date: 2013-01-22 11:45:11.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- jmeter
+- ruby
+- sinatra
+- sinatrarb
+- testing
+meta:
+  _edit_last: '6246633'
+  publicize_twitter_user: 123579D
+  _wpas_done_129558: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:89917968;b:1;}}
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2013/01/22/tuning-jmeter-test-plans-with-sinatra/"
+---
+<p>A while ago I had to create a <a href="http://jmeter.apache.org/" title="Apache JMeter site" target="_blank">JMeter</a> test plan that would generate an almost constant load on servers without having a peak at the start of an interval and close to nothing for the rest of the period. To avoid unnecessary costs and have a reliable way to work on shaping the test plan it wasn't an option to use remote servers. I had to find a way to mock the behaviour of those servers on my workstation fast and easy.<!--more--></p>
+<p>Let's assume the test scenario was to generate a constant load of 2000 requests per minute over a period of two hours and graph how the system performs. The functionality to test consisted of a request to a valid URI with, among others, a variable for a language that makes the server redirect to a content page in that language or the default language. It's safe to assume that a URI will cause a redirect or will return content. In other words, only the HTTP status codes are valuable data.</p>
+<p>In order to shape the JMeter test plan we have several options:</p>
+<ul>
+<li>A copy of the real, but untested, system;</li>
+<li>start a local Apache server with mod_rewrite and a content page;</li>
+<li>use .Net or Java code to emulate the behaviour;</li>
+<li>use Python, Perl or Ruby to emulate the behaviour</li>
+<li>magic</li>
+</ul>
+<p>I opted for using Ruby, because the day before I read about the <a href="http://www.sinatrarb.com/" title="Sinatra framework" target="_blank">Sinatra framework</a> (again) and it looked like the fastest thing to set up in a way that was very readable and intuitive.</p>
+<p>The instructions on how to install the Sinatra framework are clearly explained on the project's website, so after going through that process once you can create a small script implementing the functionality that you want.</p>
+<p>In my case I decided on a script I could easily execute. While test driving it I liked to have some nice content to display, so I added some markup with <a href="http://haml.info/" title="Haml" target="_blank">HAML</a>. The JMeter test will not bother about it though.</p>
+<p>[sourcecode language="ruby" highlight="6,9,12"]<br />
+#!/usr/bin/env ruby<br />
+require 'rubygems'<br />
+require 'sinatra'<br />
+require 'haml'</p>
+<p>get '/redirectme' do<br />
+   print 'ok'<br />
+   lang = params[:lang] ? params[:lang] : 'no'<br />
+   redirect to(&quot;/content/#{lang}/index.html&quot;)<br />
+end</p>
+<p>get '/content/:lang/index.html' do<br />
+   msg = case params[:lang]<br />
+         when 'nl'<br />
+            &quot;Vader koopt een spotlijster voor je&quot;<br />
+         when 'fi'<br />
+            &quot;Isä ostaa sinulle matkijat&quot;<br />
+         when 'en'<br />
+            &quot;Daddy's going to buy you a mockingbird&quot;<br />
+         else<br />
+            &quot;... and if that mockingbird don't sing, daddy's gonna buy you a diamond ring&quot;<br />
+         end<br />
+   haml &quot;%h1 #{msg}&quot;, :format =&gt; :html5<br />
+end</p>
+<p>not_found do<br />
+   halt 404, 'Nothing here.'<br />
+end</p>
+<p>error do<br />
+   halt 500, 'Something broke...'<br />
+end<br />
+[/sourcecode]</p>
+<p>The source code starts with the libraries required to get the output right. The part necessary for my scenario was to emphasize which GET requests would be made (line 6 and 12) and how to redirect from the first request to the content page (line 9). The resulting content will in this case display a text in Dutch, Finnish or English about a mockingbird with the default being that the mockingbird doesn't sin g.</p>
+<p>For good measure I added the <code>not_found</code> and <code>error</code> parts, but I don't remember if it was mandatory. It did help when I made some mistakes in the script configuration.</p>
+<p>Now that the script is available all I had to change where some variables for the server location and port in the JMeter plan. After which the test plan turned into something with the ability to deliver the right amount of load. Going through this experience proved me that learning new things is fun and thinking out of your comfort zone can actually cut costs while being beneficial later on.</p>

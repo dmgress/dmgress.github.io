@@ -1,0 +1,39 @@
+---
+title: Project version notes in Redmine
+date: 2009-03-05 15:07:49.000000000 +00:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Software development
+tags:
+- recycling
+- redmine
+- ruby
+- work
+meta:
+  _edit_last: '6246633'
+author:
+  login: dmgress
+  email: dmgressmann@gmail.com
+  display_name: Daniel Gressmann
+  first_name: Daniel
+  last_name: Gressmann
+permalink: "/2009/03/05/project-version-notes-in-redmine/"
+excerpt: A story of how I modified some views in Redmine and told my co workers what
+  to do to get some notes to show up in their project's roadmap and version overview
+  screen.
+---
+<p>Assuming you are all aware of the Redmine project management application there is no need to link to the Redmine project home page...</p>
+<p>For those that are curious what Redmine is, yeah better visit the homepage because that will save me lots of explaining.</p>
+<p>So what happened? Well as I was minding my business and happily testing, commiting and update issues in Redmine a co worker materialised behind me asking about how to change the subject and description of an issue he just added to his project.</p>
+<p>You see, I liked the idea of having a project management app and something I could just easily understand. Ruby code is usual very clear and understandable, Rails doesn't take much to set up and that's how I got to Redmine. Something I could "just" run on my workstation and replace that pile of paper I recycle by using it twice. Number one problem being that I looking for a certain idea I jotted down took time and realizing that it wasn't as great as I hoped drained energy. Now I at least don't waste time ;)</p>
+<p>After a while another co worker wanted to use it too, not in the least part because I was praising it so much, and I thought that the sales guy could use it to forward requests to me. This lead to it being put on an internal server and eventually being used by everybody in the office. Small office, not such a big deal after all. Of course I gave small personal instructions, but never knew it all and still learning more.</p>
+<p>Back to the main story...</p>
+<p>So he wanted to know how to change the subject and description. I pointed out the tiny link labeled more in the update screen and that answer was solved. The other option is editing it in the database so you don't get an ugly activity update when you're only correcting a mistake. Clearly don't edit database stuff if you might have concurrent access or multiple users hitting it, that's bad practice. I only edited when nobody is using Redmine and on the overtime hours :)</p>
+<p>A few minutes later he asked if there was a way to have an overview of additional things to do upon installation of the project at a client site. This of course concerns running scripts or modifying certain files because of an update. He had used the subject of the issue to tell him which scripts to run, because they would actually show in the roadmap and version overview screens. I said I would get back to him with an answer and not long after that I discovered how it was done by the Redmine project itself.</p>
+<p>It's possible to link a certain wiki page to a project. Doing that will display (some of) the content of that wiki page on the roadmap and version overview screens. Thus far I discovered that the page title and headers are not displayed. Which is good, because that would sure ruin the layout of the roadmap screen and it's too much information.</p>
+<p>There is just one little snag. Wouldn't it be nice if you can just edit the notes straight from the roadmap page or version overview? Yes it would, so that's why I made a view small links from those pages. They're only visible when the version is still uncompleted, but haven't put the check for user authorization in it yet...</p>
+<p>I think I accomplished much in developer friendliness by adding those links. Sort of a shortcut to visiting the wiki, clicking a link on the main page to go to the wiki page of the version and also a shortcut to going to the versions part to click the link. I'm quite content, soon I'll hear from the co workers if changes are needed.</p>
