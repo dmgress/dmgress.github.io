@@ -1,5 +1,4 @@
 ---
-
 author:
   display_name: Daniel Gressmann
   email: dmgressmann@gmail.com
@@ -7,24 +6,23 @@ author:
   last_name: Gressmann
   login: dmgress
 categories:
-- Software development
+  - Software development
 date: 2012-08-19 10:25:14+00:00
 meta:
-  _edit_last: '6246633'
-  _wpas_done_twitter: '1'
-parent_id: '0'
-password: ''
+  _edit_last: "6246633"
+  _wpas_done_twitter: "1"
+parent_id: "0"
+password: ""
 permalink: /2012/08/19/how-heroku-assured-the-quality-of-my-node-js-app/
 published: true
 status: publish
 tags:
-- code quality
-- heroku
-- node.js
+  - code quality
+  - heroku
+  - node.js
 title: How Heroku assured the quality of my Node.js app
 type: post
 ---
-
 
 A while ago I was working on a proof-of-concept Node.JS app that involved using MongoDB's spatial indexing and ran into issues with the Node.JS Package Manager (NPM). Perhaps it was a coincidence, but this is apparently where using a PaaS (Platform as a Service) like Heroku actually is useful in assuring the project you push is working as expected.
 
@@ -38,37 +36,23 @@ That Sunday i actually sent a link to a coworker to review the styling of my app
 
 I ran my project and couldn't find any errors. So I executed `heroku logs` to get the logs of my app on Heroku. Then I started analyzing the logs, which looked somewhat like this:
 
-[sourcecode language="bash"]
+```bash
 
 2012-05-14T08:56:36+00:00 app[web.1]: node.js:201
-
 2012-05-14T08:56:36+00:00 app[web.1]: throw e; // process.nextTick error, or 'error' event on first tick
-
 2012-05-14T08:56:36+00:00 app[web.1]: ^
-
 2012-05-14T08:56:36+00:00 app[web.1]: TypeError: Cannot read property '\_serverState' of undefined
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Db.state (/app/node\_modules/mongoskin/node\_modules/mongodb/lib/mongodb/db.js:1810:31)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Object. (/app/node\_modules/mongoskin/lib/mongoskin/db.js:199:28)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Module.\_compile (module.js:441:26)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Module.load (module.js:348:31)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Object..js (module.js:459:10)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Function.\_load (module.js:308:12)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Module.require (module.js:354:17)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at require (module.js:370:17)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Object. (/app/node\_modules/mongoskin/lib/mongoskin/server.js:5:14)
-
 2012-05-14T08:56:36+00:00 app[web.1]: at Module.\_compile (module.js:441:26)
-
-[/sourcecode]
+```
 
 Like any confused programmer, I did an internet search on any of the error, but I wound up finding nothing to help me at all.
 
@@ -89,4 +73,3 @@ Version 0.3.5 of mongoskin was not something I wanted to change, since it might 
 Explicitly stating the versions to use transitive dependencies can easily snow ball into adding more information about your transitive dependencies than the actual dependencies you intend to use. Thankfully there is the `npm shrinkwrap` command. What this does is make a full listing of all the versions of every module in use by your project, as it is available at that time, in your working copy. Just like you expect when you [shrinkwrap](http://www.thefreedictionary.com/shrinkwrap) a product. It creates a new file (`npm-shrinkwrap.json`) in your project which will enforce the correct versions.
 
 What I learned is that dependency management in (server-side) javascript still has a lot pitfalls if you are not in full control. With Heroku you can at least be sure that badly configured applications will break, instead of running on pure luck.
-

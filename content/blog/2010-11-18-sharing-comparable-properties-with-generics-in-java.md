@@ -30,34 +30,28 @@ The first thing you'd think of would be to write an explicit version for each in
 
 Using the following code for your `AbstractHouse` will ensure that `Mansion`s can only be compared to `Mansion`s and `Flat`s only to `Flat`s, even if you ignore the generics in your code.
 
-[sourcecode language="java"]
+```java
 
 public abstract class AbstractHouse<T extends AbstractHouse> implements Comparable<T> {
 
-private int noOfRooms;
+	private int noOfRooms;
 
-public int compareTo (T o) {
+	public int compareTo (T o) {
 
-if (!getClass ().isInstance (o))
-
-throw new ClassCastException ("can't compare " + getClass ().getCanonicalName () + " to " + o.getClass ().getCanonicalName ());
-
-return this.noOfRooms - other.noOfRooms;
-
+		if (!getClass ().isInstance (o)) {
+			throw new ClassCastException ("can't compare " + getClass ().getCanonicalName () + " to " + o.getClass ().getCanonicalName ());
+		}
+		return this.noOfRooms - other.noOfRooms;
+	}
 }
 
-}
-
-[/sourcecode]
+```
 
 As you can see, line 1 locks in the generic part of the `Comparable` interface, but in case you aren't really using generics the `isInstance` check at line 7 will cause a `ClassCastException` to be thrown. Throwing a `ClassCastException` is conform to the `Comparable` interface which states that one can be thrown "... if the specified object's type prevents it from being compared to this object." What is left is defining the `Mansion` class as follows.
 
-[sourcecode language="java"]
-
+```java
 public abstract class Mansion extends AbstractHouse<Mansion> implements Comparable<Mansion> {
-
 }
-
-[/sourcecode]
+```
 
 Although I am not sure of the necessity of explicitly stating the `Comparable` in the class definition, it seems rational to do so. It's quite possible that the `Comparable` interface on a super class doesn't have to mean that all subclasses share the same feature by inheritance, the JavaDocs aren't clear on this and being explicit about it isn't harmful.
