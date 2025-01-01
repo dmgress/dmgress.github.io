@@ -1,0 +1,40 @@
+---
+
+author:
+  display_name: Daniel Gressmann
+  email: dmgressmann@gmail.com
+  first_name: Daniel
+  last_name: Gressmann
+  login: dmgress
+categories:
+- Software development
+date: null
+meta:
+  _edit_last: '6246633'
+parent_id: '0'
+password: ''
+permalink: /2013/12/30/theres-no-place-to-call-home/
+published: false
+status: private
+tags: []
+title: There's no place to call home
+type: post
+---
+
+
+Have you ever felt that somehow you're not at home anywhere in the world? Of course I grew up and am still living in the Netherlands, it should be the place I want to call home. Yet I feel like I don't belong here (anymore).
+
+First let me define the concept of home. In essence it's a place where you return for several reasons. You're most likely getting your best rest at home. At home you know where things are. When at home you can find some privacy. A home is where you are in (some) control of what's going on. And finally at home nobody will judge you. So why can't I feel at home anywhere, not even where I was born?
+
+Roughly six years ago I moved out of my hometown. The reason for moving closer to "de randstad" was mainly economical. Salaries are higher and there are more diverse opportunities in my field of study, software engineering. I felt that staying in Groningen might limit my exposure to exciting new experiences, something I was looking for at that time in my life.
+
+My first job was at a small company. I had to move and after 6 months I got an affordable place close to the city of Haarlem. I lived in very basic but OK conditions. For instance, there's no dining table or couch because I never needed it.
+
+For four years my commute was comfortable and although I was hoping to find a better place to live, I didn't have much to complain. I guess somewhere along the way the cafe downstairs got louder and the neighbour was a cat lady. That, and a boring job where I felt left out and awkward fueled the feeling of not being at home.
+
+My choice was to change jobs, perhaps a different environment would allow me to feel "home" again. The first time I tried I either got rejected or didn't follow through. A year later a recruiter got hold of me and managed to line up several job interviews for me. As I wasn't keen on sharing that I was out looking for jobs I hid this by taking time off. I picked one of the offers and now here I am. A new company, but after a few years still lost.
+
+Neighbours came and went, yet I didn't move houses. I wouldn't know where to go now, it seems no place will be home. Some might say you need to make it home, in that case there is no place here I want to make home.
+
+I guess I will just wander around until I get out and find my new home.
+
