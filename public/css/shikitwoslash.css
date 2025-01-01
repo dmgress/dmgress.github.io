@@ -40,7 +40,6 @@ pre {
 
 			&::before {
 				content: counter(codeblock-line);
-				content: counter(codeblock-line);
 				min-width: 2em;
 				border-right: double 5px;
 				padding-right: 5px;
