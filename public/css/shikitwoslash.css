@@ -57,15 +57,18 @@ pre {
 		background-color: gray;
  }
 }
-				content: counter(codeblock-line);
-				min-width: 2em;
-				border-right: double 5px;
-				padding-right: 5px;
-				text-align: right;
-				display: inline-block;
+
+div.code-container:has(:nth-child(3 of .line)) .line:before {
+	content: counter(codeblock-line);
+	color: oklch(var(--db-yellow));
+	text-align: end;
+	user-select: none;
+	inline-size: 2ch;
+	margin-inline: -6px 14px;
+	display: inline-block;
 }
 
- pre.shiki:hover .dim {
+pre.shiki:hover .dim {
 	 /* opacity: 1; */
 }
  pre.shiki div.dim {
