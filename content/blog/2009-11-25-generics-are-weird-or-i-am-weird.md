@@ -29,7 +29,6 @@ Yesterday, late afternoon, I stumbled across a compilation problem for one of my
 Given the two classes below (modified for brevity, of course):
 
 ```java
-// @filename: Foo.java
 import java.util.*;
 
 public class Foo<t> {
