@@ -93,7 +93,12 @@ export default async function(eleventyConfig) {
 	});
 
 	//
-	eleventyConfig.addPlugin(shikiTwoslash);
+	eleventyConfig.addPlugin(shikiTwoslash, {
+		themes: [
+			"everforest-dark", // dark
+			"everforest-light", //light
+		],
+	});
 
 	// Filters
 	eleventyConfig.addPlugin(pluginFilters);
