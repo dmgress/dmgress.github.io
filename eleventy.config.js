@@ -57,7 +57,7 @@ export default async function(eleventyConfig) {
 		templateData: {
 			eleventyNavigation: {
 				key: "Feed",
-				order: 4
+				order: 6
 			}
 		},
 		collection: {
@@ -66,11 +66,11 @@ export default async function(eleventyConfig) {
 		},
 		metadata: {
 			language: "en",
-			title: "Blog Title",
-			subtitle: "This is a longer description about your blog.",
-			base: "https://example.com/",
+			title: "Glimpses of Daniel's world",
+			subtitle: "Daniel Gressmann is a nice guy. He tries hard and at times doesn't get things done quite as he planned it. But hey, who does?",
+			base: "https://dmgress.dev/blog",
 			author: {
-				name: "Your Name"
+				name: "Daniel Gressmann"
 			}
 		}
 	});
