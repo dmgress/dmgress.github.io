@@ -6,9 +6,16 @@ const eleventyNavigation = {
 
 const numberOfLatestPostsToShow = 3;
 ---
-<img src="../public/img/20250517_201647_m.jpg" alt="me" width="200" />
-<p>{{ metadata.description }}</p>
-
+<p/>
+<img src="../public/img/20250517_201647_m.jpg" alt="me" class="profile_pic" width="75" />
+<p class="summary">
+Throughout my career, I've developed, automated, and documented processes in various software development and
+operations roles for diverse companies using English as their business language.
+</p>
+<p>With my assistance, these companies
+successfully migrated to and between clouds, enhanced their compliance and security, and improved engineering
+efficiency.</p><br/>
+<hr />
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
 <h3>Latest {{ latestPostsCount }} glimpses of Daniel's world</h3>
