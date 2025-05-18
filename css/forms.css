@@ -1,0 +1,17 @@
+
+input, textarea, select {
+	margin: 1em;
+	width: 100%;
+}
+input :first-child {
+	margin-top: 0;
+}
+.req {
+	color: red;
+}
+input[type=submit] {
+	background-color: #5f5f5f;
+	font-weight: bold;
+	color: aliceblue;
+	height: 2em;
+}

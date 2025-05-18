@@ -1,0 +1,23 @@
+---js
+const eleventyNavigation = {
+	key: "Contact",
+	order: 5
+};
+
+const numberOfLatestPostsToShow = 3;
+---
+<style>{% include "css/forms.css" %}</style>
+<h1>Contact me</h1>
+
+<form name="contact" method="POST" data-netlify="true">
+    <label for="name">Your Name: <span class="req">*</span></label><input type="text" name="name" required/>
+    <label for="email">Your Email: <span class="req">*</span></label><input type="email" name="email" required/>
+    <label for="phone">Your Phone number:</label><input type="tel" name="phone" />
+    <label for="role">Your Role:</label><select name="role">
+      <option value="leader">Leader</option>
+      <option value="follower">Follower</option>
+    </select>
+    <label for="message">Message: <span class="req">*</span></label><textarea name="message" required></textarea>
+    <input type="submit" />
+		<p><span class="req">*</span> - Required field</p>
+</form>
