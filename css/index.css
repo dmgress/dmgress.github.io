@@ -20,6 +20,16 @@
 	--syntax-tab-size: 2;
 }
 
+.footer_icon {
+	height: 1.2em;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+
+.github_logo {
+	color: #24292f;
+}
+
 @media (prefers-color-scheme: dark) {
 	:root {
 		--color-gray-20: #e0e0e0;
@@ -32,6 +42,9 @@
 		--text-color-link-visited: #a6a6f8;
 
 		--background-color: #15202b;
+	}
+	.github_logo {
+		color: #fff;
 	}
 }
 
@@ -299,3 +312,6 @@ header {
 	margin-right: 1em;
 }
 
+.buildinfo {
+	font-size: smaller;
+}
