@@ -12,13 +12,20 @@ const numberOfLatestPostsToShow = 3;
 <form name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true">
     <label for="name">Your Name: <span class="req">*</span></label><input type="text" name="name" required/>
     <label for="email">Your Email: <span class="req">*</span></label><input type="email" name="email" required/>
-    <label for="phone">Your Phone number:</label><input type="tel" name="phone" />
+    <label for="phone">Your Phone number:</label><input type="tel" name="phone" placeholder="e.g. +31 123456789" />
     <label for="role">Your Role:</label><select name="role">
-      <option value="leader">Leader</option>
-      <option value="follower">Follower</option>
+      <option value="0" selected>None</option>
+      <option value="dev">Software engineer</option>
+      <option value="devops">DevOps engineer</option>
+      <option value="sre">Site reliability engineer</option>
+      <option value="idp">Platform engineer</option>
+      <option value="architect">Software architect</option>
+			<option value="manager">Manager</option>
+      <option value="recruiter">Recruiter</option>
+			<option value="other">Other ...</option>
     </select>
     <label for="message">Message: <span class="req">*</span></label><textarea name="message" required></textarea>
-		<div data-netlify-recaptcha="true"></div>
+		<div class="captcha-here" data-netlify-recaptcha="true"></div>
     <input type="submit" />
 		<p><span class="req">*</span> - Required field</p>
 </form>
