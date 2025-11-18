@@ -49,7 +49,7 @@
 	"dependencies": {
 		"@olets/eleventy-plugin-shiki-twoslash": "^2.0.12",
 		"@zachleat/heading-anchors": "^1.0.3",
-		"glob": "^11.0.0",
+		"glob": "^11.1.0",
 		"rimraf": "^6.0.1"
 	}
 }
