@@ -1,5 +1,6 @@
 export default {
-	title: "dmgress dev - freelance ",
+	title: "dmgress dev - freelance IT",
+	blogTitle: "Glimpses of Daniel's world",
 	url: "https://dmgress.dev/",
 	language: "en",
 	author: {

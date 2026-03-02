@@ -4,7 +4,7 @@ const eleventyNavigation = {
 	order: 4
 };
 ---
-<h1>Glimpses of Daniel's world</h1>
+<h1>{{ metadata.blogTitle }}</h1>
 
 {% set postslist = collections.posts %}
 {% include "postslist.njk" %}
