@@ -3,7 +3,7 @@ layout: layouts/base.njk
 ---
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
 {%- css %}{% include "public/css/shikitwoslash.css" %}{%- endcss %}
-<h1>{{ title }}</h1>
+<h1>{{ title }}{%- if page.draft %}<em>DRAFT: </em>{% endif %}</h1>
 
 <ul class="post-metadata">
 	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate('DDD T') }}</time></li>
